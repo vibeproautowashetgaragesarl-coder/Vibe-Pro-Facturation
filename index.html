@@ -1,53 +1,110 @@
+
 <!DOCTYPE html>
 <html lang="fr">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>VIBE PRO FACTURATION</title>
+<title>Connexion - VIBE PRO FACTURATION</title>
 <style>
 *{box-sizing:border-box}
-body{margin:0;background:#f4f5f7;color:#202633;font-family:Arial,sans-serif}
-header{background:#14263d;color:white;padding:22px 16px;border-bottom:4px solid #c9a64c}
-header h1{margin:0;font-size:22px}
-header p{margin:7px 0 0;color:#e6d29a;font-size:12px}
-main{max-width:950px;margin:22px auto;padding:0 14px}
-.welcome{background:white;padding:20px;border-radius:12px;margin-bottom:18px}
-.welcome h2{margin:0 0 8px;color:#14263d}
-.welcome p{margin:0;color:#687386;font-size:14px}
-.grid{display:grid;grid-template-columns:repeat(2,1fr);gap:12px}
-.item{background:white;padding:19px 12px;border-radius:12px;border:1px solid #e4e7ec;text-align:center}
-.item .icon{font-size:27px;margin-bottom:9px}
-.item strong{display:block;color:#14263d;font-size:14px}
-.item small{display:block;color:#7a8493;margin-top:5px}
-.notice{margin-top:18px;background:#fff8e8;border-left:4px solid #c9a64c;padding:14px;border-radius:7px;font-size:13px}
-footer{text-align:center;color:#7a8493;font-size:12px;padding:25px}
-@media(min-width:650px){.grid{grid-template-columns:repeat(3,1fr)}}
+body{margin:0;background:#f3f4f6;font-family:Arial,sans-serif;color:#202633;min-height:100vh;display:flex;align-items:center;justify-content:center;padding:18px}
+.login{width:100%;max-width:420px;background:white;border-radius:16px;padding:28px 22px;box-shadow:0 8px 30px #14263d18}
+.logo{text-align:center;color:#14263d;font-size:23px;font-weight:bold}
+.gold{color:#b18b35}
+.subtitle{text-align:center;color:#687386;font-size:13px;margin:9px 0 26px}
+h2{font-size:19px;color:#14263d;margin-bottom:8px}
+.description{font-size:13px;color:#687386;margin-bottom:22px}
+label{display:block;font-size:13px;font-weight:bold;margin:15px 0 7px}
+input{width:100%;padding:14px;border:1px solid #d8dde5;border-radius:8px;font-size:15px;outline:none}
+input:focus{border-color:#b18b35}
+button{width:100%;padding:14px;margin-top:22px;border:0;border-radius:8px;background:#14263d;color:white;font-size:15px;font-weight:bold}
+button:disabled{opacity:.6}
+#message{font-size:13px;margin-top:16px;text-align:center;line-height:1.5}
+footer{text-align:center;color:#9299a5;font-size:11px;margin-top:24px}
 </style>
 </head>
 <body>
-<header>
-<h1>VIBE PRO FACTURATION</h1>
-<p>AUTO WASH & GARAGE SARL</p>
-</header>
-<main>
-<section class="welcome">
-<h2>Bienvenue dans votre espace de gestion</h2>
-<p>Gestion professionnelle de vos activités, clients, factures et finances.</p>
-</section>
-<section class="grid">
-<div class="item"><div class="icon">🧾</div><strong>Factures</strong><small>Créer et gérer les factures</small></div>
-<div class="item"><div class="icon">📄</div><strong>Devis</strong><small>Préparer les devis clients</small></div>
-<div class="item"><div class="icon">👥</div><strong>Clients</strong><small>Fichier clientèle</small></div>
-<div class="item"><div class="icon">🛠️</div><strong>Services et produits</strong><small>Catalogue et tarifs</small></div>
-<div class="item"><div class="icon">💰</div><strong>Trésorerie</strong><small>Recettes et dépenses</small></div>
-<div class="item"><div class="icon">📊</div><strong>Rapports</strong><small>Suivi des activités</small></div>
-</section>
-<div class="notice">
-<strong>Version initiale</strong><br>
-Votre espace de gestion est en cours de construction. Les fonctionnalités seront activées progressivement.
+<div class="login">
+<div class="logo">VIBE PRO <span class="gold">FACTURATION</span></div>
+<div class="subtitle">AUTO WASH & GARAGE SARL</div>
+<h2>Connexion administrateur</h2>
+<p class="description">Connectez-vous avec votre adresse e-mail professionnelle.</p>
+
+<form id="loginForm">
+<label for="email">Adresse e-mail</label>
+<input id="email" type="email" autocomplete="username" required placeholder="Votre adresse e-mail">
+
+<label for="password">Mot de passe</label>
+<input id="password" type="password" autocomplete="current-password" required placeholder="Votre mot de passe">
+
+<button id="loginButton" type="submit">Se connecter</button>
+</form>
+
+<div id="message" role="status"></div>
+<footer>Accès réservé au personnel autorisé<br>VIBE PRO · Burkina Faso</footer>
 </div>
-</main>
-<footer>VIBE PRO AUTO WASH & GARAGE SARL · Burkina Faso</footer>
+
+<script type="module">
+import { initializeApp } from "https://www.gstatic.com/firebasejs/13.4.0/firebase-app.js";
+import { getAuth, signInWithEmailAndPassword } from "https://www.gstatic.com/firebasejs/13.4.0/firebase-auth.js";
+import { getFirestore, doc, getDoc } from "https://www.gstatic.com/firebasejs/13.4.0/firebase-firestore.js";
+
+const firebaseConfig = {
+  apiKey: "AIzaSyDvunHAzr8kPkr47-cOGq_Lpe9xjofewUA",
+  authDomain: "vibe-pro-mobile-c1291.firebaseapp.com",
+  projectId: "vibe-pro-mobile-c1291",
+  storageBucket: "vibe-pro-mobile-c1291.firebasestorage.app",
+  messagingSenderId: "875205867187",
+  appId: "1:875205867187:web:e1bffc0c6b7b2c763062c6"
+};
+
+const app = initializeApp(firebaseConfig);
+const auth = getAuth(app);
+const db = getFirestore(app);
+
+const form = document.getElementById("loginForm");
+const message = document.getElementById("message");
+const button = document.getElementById("loginButton");
+
+form.addEventListener("submit", async (event) => {
+  event.preventDefault();
+  message.textContent = "";
+  button.disabled = true;
+  button.textContent = "Vérification...";
+
+  try {
+    const email = document.getElementById("email").value.trim();
+    const password = document.getElementById("password").value;
+
+    const result = await signInWithEmailAndPassword(auth, email, password);
+    const uid = result.user.uid;
+
+    const adminRef = doc(db, "utilisateurs_facturation", uid);
+    const adminSnap = await getDoc(adminRef);
+
+    if (!adminSnap.exists()) {
+      await auth.signOut();
+      throw new Error("Ce compte n'est pas autorisé à accéder à VIBE PRO FACTURATION.");
+    }
+
+    const admin = adminSnap.data();
+
+    if (admin.uid !== uid || admin.actif !== true || !["admin", "principal"].includes(admin.role)) {
+      await auth.signOut();
+      throw new Error("Accès refusé : compte inactif ou droits insuffisants.");
+    }
+
+    message.style.color = "green";
+    message.textContent = "Connexion vérifiée. Le tableau de bord sera activé à l'étape suivante.";
+
+  } catch (error) {
+    message.style.color = "#b42318";
+    message.textContent = error.message;
+  } finally {
+    button.disabled = false;
+    button.textContent = "Se connecter";
+  }
+});
+</script>
 </body>
-                                                                                                            </html>
-                                                                                                            
+</html>
