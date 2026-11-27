@@ -87,12 +87,15 @@ form.addEventListener("submit", async (event) => {
       throw new Error("Ce compte n'est pas autorisé à accéder à VIBE PRO FACTURATION.");
     }
 
-    const admin = adminSnap.data();
+    const ADMIN_UIDS = [
+  "XYNQbvoFuDclpbVWFhxPOLnFYKu1",
+  "w7yeSrcFXWaPpJYXVeuKCqUkkSl2"
+];
 
-    if (admin.uid !== uid || admin.actif !== true || !["admin", "principal"].includes(admin.role)) {
-      await auth.signOut();
-      throw new Error("Accès refusé : compte inactif ou droits insuffisants.");
-    }
+if (!ADMIN_UIDS.includes(uid)) {
+  await auth.signOut();
+  throw new Error("Accès refusé : UID non autorisé.");
+}
 
     message.style.color = "green";
     message.textContent = "Connexion vérifiée. Le tableau de bord sera activé à l'étape suivante.";
