@@ -4,53 +4,397 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Connexion - VIBE PRO FACTURATION</title>
+<title>VIBE PRO FACTURATION</title>
+
 <style>
 *{box-sizing:border-box}
-body{margin:0;background:#f3f4f6;font-family:Arial,sans-serif;color:#202633;min-height:100vh;display:flex;align-items:center;justify-content:center;padding:18px}
-.login{width:100%;max-width:420px;background:white;border-radius:16px;padding:28px 22px;box-shadow:0 8px 30px #14263d18}
-.logo{text-align:center;color:#14263d;font-size:23px;font-weight:bold}
+
+body{
+  margin:0;
+  background:#f4f6f9;
+  font-family:Arial,sans-serif;
+  color:#202633;
+}
+
 .gold{color:#b18b35}
-.subtitle{text-align:center;color:#687386;font-size:13px;margin:9px 0 26px}
-h2{font-size:19px;color:#14263d;margin-bottom:8px}
-.description{font-size:13px;color:#687386;margin-bottom:22px}
-label{display:block;font-size:13px;font-weight:bold;margin:15px 0 7px}
-input{width:100%;padding:14px;border:1px solid #d8dde5;border-radius:8px;font-size:15px;outline:none}
-input:focus{border-color:#b18b35}
-button{width:100%;padding:14px;margin-top:22px;border:0;border-radius:8px;background:#14263d;color:white;font-size:15px;font-weight:bold}
-button:disabled{opacity:.6}
-#message{font-size:13px;margin-top:16px;text-align:center;line-height:1.5}
-footer{text-align:center;color:#9299a5;font-size:11px;margin-top:24px}
+
+.login{
+  width:calc(100% - 30px);
+  max-width:420px;
+  margin:70px auto;
+  background:white;
+  border-radius:16px;
+  padding:28px 22px;
+  box-shadow:0 8px 30px #14263d18;
+}
+
+.logo{
+  text-align:center;
+  color:#14263d;
+  font-size:23px;
+  font-weight:bold;
+}
+
+.subtitle{
+  text-align:center;
+  color:#687386;
+  font-size:13px;
+  margin:9px 0 26px;
+}
+
+h2{font-size:19px;color:#14263d}
+
+label{
+  display:block;
+  font-size:13px;
+  font-weight:bold;
+  margin:15px 0 7px;
+}
+
+input{
+  width:100%;
+  padding:14px;
+  border:1px solid #d8dde5;
+  border-radius:8px;
+  font-size:15px;
+}
+
+button{
+  cursor:pointer;
+  border:0;
+  border-radius:8px;
+  padding:13px;
+  font-weight:bold;
+}
+
+.login button{
+  width:100%;
+  margin-top:22px;
+  background:#14263d;
+  color:white;
+}
+
+#message{
+  font-size:13px;
+  margin-top:16px;
+  text-align:center;
+}
+
+footer{
+  text-align:center;
+  color:#9299a5;
+  font-size:11px;
+  margin-top:24px;
+}
+
+/* TABLEAU DE BORD */
+
+#dashboard{display:none}
+
+.topbar{
+  background:#14263d;
+  color:white;
+  padding:18px;
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  gap:10px;
+}
+
+.brand{
+  font-size:19px;
+  font-weight:bold;
+}
+
+.topbar small{color:#e5c778}
+
+.logout{
+  background:#b18b35;
+  color:white;
+  padding:10px 12px;
+}
+
+.container{
+  max-width:1100px;
+  margin:auto;
+  padding:20px 15px;
+}
+
+.welcome{
+  margin-bottom:22px;
+}
+
+.welcome h2{
+  font-size:22px;
+  margin-bottom:6px;
+}
+
+.welcome p{
+  color:#687386;
+  font-size:13px;
+}
+
+.stats{
+  display:grid;
+  grid-template-columns:repeat(2,1fr);
+  gap:12px;
+  margin-bottom:28px;
+}
+
+.stat{
+  background:white;
+  padding:18px;
+  border-radius:12px;
+  border:1px solid #e8eaf0;
+}
+
+.stat .number{
+  font-size:25px;
+  font-weight:bold;
+  color:#14263d;
+  margin:12px 0 5px;
+}
+
+.stat small{color:#687386}
+
+.section-title{
+  color:#14263d;
+  font-size:18px;
+  margin-bottom:14px;
+}
+
+.modules{
+  display:grid;
+  grid-template-columns:repeat(2,1fr);
+  gap:12px;
+}
+
+.module{
+  background:white;
+  border:1px solid #e5e8ed;
+  border-radius:12px;
+  padding:18px 12px;
+  text-align:left;
+  min-height:105px;
+  color:#14263d;
+}
+
+.module:active{background:#f8f4e9}
+
+.module .symbol{
+  font-size:24px;
+  display:block;
+  margin-bottom:12px;
+}
+
+.module strong{
+  display:block;
+  font-size:14px;
+}
+
+.module small{
+  color:#788394;
+  font-size:11px;
+}
+
+.workspace{
+  display:none;
+  background:white;
+  border-radius:12px;
+  padding:22px;
+  margin-top:22px;
+  border:1px solid #e5e8ed;
+}
+
+.workspace h3{color:#14263d}
+
+.back{
+  background:#14263d;
+  color:white;
+  margin-top:15px;
+}
+
+.notice{
+  color:#687386;
+  font-size:13px;
+  line-height:1.6;
+}
+
+@media(min-width:700px){
+  .stats{grid-template-columns:repeat(4,1fr)}
+  .modules{grid-template-columns:repeat(3,1fr)}
+}
 </style>
 </head>
+
 <body>
-<div class="login">
-<div class="logo">VIBE PRO <span class="gold">FACTURATION</span></div>
-<div class="subtitle">AUTO WASH & GARAGE SARL</div>
-<h2>Connexion administrateur</h2>
-<p class="description">Connectez-vous avec votre adresse e-mail professionnelle.</p>
 
-<form id="loginForm">
-<label for="email">Adresse e-mail</label>
-<input id="email" type="email" autocomplete="username" required placeholder="Votre adresse e-mail">
+<!-- CONNEXION -->
+<div class="login" id="login">
+  <div class="logo">VIBE PRO <span class="gold">FACTURATION</span></div>
+  <div class="subtitle">AUTO WASH &amp; GARAGE SARL</div>
 
-<label for="password">Mot de passe</label>
-<input id="password" type="password" autocomplete="current-password" required placeholder="Votre mot de passe">
+  <h2>Connexion administrateur</h2>
+  <p class="notice">Connectez-vous avec votre adresse e-mail professionnelle.</p>
 
-<button id="loginButton" type="submit">Se connecter</button>
-</form>
+  <form id="loginForm">
+    <label for="email">Adresse e-mail</label>
+    <input id="email" type="email" autocomplete="username" required>
 
-<div id="message" role="status"></div>
-<footer>Accès réservé au personnel autorisé<br>VIBE PRO · Burkina Faso</footer>
+    <label for="password">Mot de passe</label>
+    <input id="password" type="password" autocomplete="current-password" required>
+
+    <button id="loginButton" type="submit">Se connecter</button>
+  </form>
+
+  <div id="message" role="status"></div>
+
+  <footer>
+    Accès réservé au personnel autorisé<br>
+    VIBE PRO · Burkina Faso
+  </footer>
+</div>
+
+<!-- TABLEAU DE BORD -->
+<div id="dashboard">
+
+  <header class="topbar">
+    <div>
+      <div class="brand">VIBE PRO <span class="gold">FACTURATION</span></div>
+      <small>AUTO WASH &amp; GARAGE SARL</small>
+    </div>
+    <button class="logout" id="logoutButton">Déconnexion</button>
+  </header>
+
+  <main class="container">
+
+    <div class="welcome">
+      <h2>Bienvenue dans votre espace</h2>
+      <p id="adminName">Espace administrateur</p>
+      <p id="today"></p>
+    </div>
+
+    <h3 class="section-title">Vue générale</h3>
+
+    <div class="stats">
+      <div class="stat">
+        <span>📄 Factures</span>
+        <div class="number">0</div>
+        <small>À connecter</small>
+      </div>
+
+      <div class="stat">
+        <span>👥 Clients</span>
+        <div class="number">0</div>
+        <small>À connecter</small>
+      </div>
+
+      <div class="stat">
+        <span>💰 Encaissements</span>
+        <div class="number">0 F</div>
+        <small>À connecter</small>
+      </div>
+
+      <div class="stat">
+        <span>📝 Devis</span>
+        <div class="number">0</div>
+        <small>À connecter</small>
+      </div>
+    </div>
+
+    <h3 class="section-title">Gestion de l'entreprise</h3>
+
+    <div class="modules">
+
+      <button class="module" data-module="Factures">
+        <span class="symbol">📄</span>
+        <strong>Factures</strong>
+        <small>Créer et gérer les factures</small>
+      </button>
+
+      <button class="module" data-module="Devis">
+        <span class="symbol">📝</span>
+        <strong>Devis</strong>
+        <small>Préparer les devis clients</small>
+      </button>
+
+      <button class="module" data-module="Reçus">
+        <span class="symbol">🧾</span>
+        <strong>Reçus</strong>
+        <small>Éditer les reçus de paiement</small>
+      </button>
+
+      <button class="module" data-module="Clients">
+        <span class="symbol">👥</span>
+        <strong>Clients</strong>
+        <small>Fichier et suivi clients</small>
+      </button>
+
+      <button class="module" data-module="Produits et prestations">
+        <span class="symbol">📦</span>
+        <strong>Produits et prestations</strong>
+        <small>Tarifs et catalogue</small>
+      </button>
+
+      <button class="module" data-module="Caisse">
+        <span class="symbol">💰</span>
+        <strong>Caisse</strong>
+        <small>Suivi des encaissements</small>
+      </button>
+
+      <button class="module" data-module="Dépenses">
+        <span class="symbol">💳</span>
+        <strong>Dépenses</strong>
+        <small>Enregistrer les dépenses</small>
+      </button>
+
+      <button class="module" data-module="Rapports">
+        <span class="symbol">📊</span>
+        <strong>Rapports</strong>
+        <small>Suivi de l'activité</small>
+      </button>
+
+      <button class="module" data-module="Utilisateurs">
+        <span class="symbol">🔐</span>
+        <strong>Utilisateurs</strong>
+        <small>Gestion des accès</small>
+      </button>
+
+    </div>
+
+    <div class="workspace" id="workspace">
+      <h3 id="workspaceTitle"></h3>
+      <p class="notice" id="workspaceDescription"></p>
+      <button class="back" id="backButton">Retour au tableau de bord</button>
+    </div>
+
+    <footer>
+      VIBE PRO AUTO WASH &amp; GARAGE SARL<br>
+      avec nous vos désirs sont des ordres
+    </footer>
+
+  </main>
 </div>
 
 <script type="module">
-import { initializeApp } from "https://www.gstatic.com/firebasejs/13.4.0/firebase-app.js";
-import { getAuth, signInWithEmailAndPassword } from "https://www.gstatic.com/firebasejs/13.4.0/firebase-auth.js";
-import { getFirestore, doc, getDoc } from "https://www.gstatic.com/firebasejs/13.4.0/firebase-firestore.js";
+
+import { initializeApp }
+from "https://www.gstatic.com/firebasejs/13.4.0/firebase-app.js";
+
+import {
+  getAuth,
+  signInWithEmailAndPassword,
+  signOut
+} from "https://www.gstatic.com/firebasejs/13.4.0/firebase-auth.js";
+
+import {
+  getFirestore,
+  doc,
+  getDoc
+} from "https://www.gstatic.com/firebasejs/13.4.0/firebase-firestore.js";
 
 const firebaseConfig = {
-  apiKey: "AIzaSyDvunHAzr8kPkr47-cOGq_Lpe9xjofewUA",
+  apiKey: "AIzaSyDvunHAzr8kPkr47-cOGq-Lpe9xjofewUA",
   authDomain: "vibe-pro-mobile-c1291.firebaseapp.com",
   projectId: "vibe-pro-mobile-c1291",
   storageBucket: "vibe-pro-mobile-c1291.firebasestorage.app",
@@ -62,12 +406,36 @@ const app = initializeApp(firebaseConfig);
 const auth = getAuth(app);
 const db = getFirestore(app);
 
+const ADMIN_UIDS = [
+  "XYNQbvoFuDclpbVWFhxPOLnFYKu1",
+  "w7yeSrcFXWaPpJYXVeuKCqUkkSl2"
+];
+
+const login = document.getElementById("login");
+const dashboard = document.getElementById("dashboard");
 const form = document.getElementById("loginForm");
 const message = document.getElementById("message");
 const button = document.getElementById("loginButton");
 
+function afficherDashboard(user, nom) {
+  login.style.display = "none";
+  dashboard.style.display = "block";
+
+  document.getElementById("adminName").textContent =
+    "Connecté : " + (nom || user.email);
+
+  document.getElementById("today").textContent =
+    new Date().toLocaleDateString("fr-FR", {
+      weekday: "long",
+      year: "numeric",
+      month: "long",
+      day: "numeric"
+    });
+}
+
 form.addEventListener("submit", async (event) => {
   event.preventDefault();
+
   message.textContent = "";
   button.disabled = true;
   button.textContent = "Vérification...";
@@ -76,29 +444,35 @@ form.addEventListener("submit", async (event) => {
     const email = document.getElementById("email").value.trim();
     const password = document.getElementById("password").value;
 
-    const result = await signInWithEmailAndPassword(auth, email, password);
-    const uid = result.user.uid;
+    const result = await signInWithEmailAndPassword(
+      auth, email, password
+    );
 
-    const adminRef = doc(db, "utilisateurs_facturation", uid);
+    const user = result.user;
+    const uid = user.uid;
+
+    if (!ADMIN_UIDS.includes(uid)) {
+      await signOut(auth);
+      throw new Error("UID non autorisé.");
+    }
+
+    const adminRef = doc(
+      db, "utilisateurs_facturation", uid
+    );
+
     const adminSnap = await getDoc(adminRef);
 
     if (!adminSnap.exists()) {
-      await auth.signOut();
-      throw new Error("Ce compte n'est pas autorisé à accéder à VIBE PRO FACTURATION.");
+      await signOut(auth);
+      throw new Error("Profil administrateur introuvable.");
     }
 
-    const ADMIN_UIDS = [
-  "XYNQbvoFuDclpbVWFhxPOLnFYKu1",
-  "w7yeSrcFXWaPpJYXVeuKCqUkkSl2"
-];
-
-if (!ADMIN_UIDS.includes(uid)) {
-  await auth.signOut();
-  throw new Error("Accès refusé : UID non autorisé.");
-}
+    const admin = adminSnap.data();
 
     message.style.color = "green";
-    message.textContent = "Connexion vérifiée. Le tableau de bord sera activé à l'étape suivante.";
+    message.textContent = "Connexion réussie.";
+
+    afficherDashboard(user, admin.nom);
 
   } catch (error) {
     message.style.color = "#b42318";
@@ -108,6 +482,41 @@ if (!ADMIN_UIDS.includes(uid)) {
     button.textContent = "Se connecter";
   }
 });
+
+// Navigation des modules
+document.querySelectorAll("[data-module]").forEach((item) => {
+  item.addEventListener("click", () => {
+    const nom = item.dataset.module;
+
+    document.getElementById("workspaceTitle").textContent = nom;
+
+    document.getElementById("workspaceDescription").textContent =
+      "Le module " + nom +
+      " sera développé et connecté à la base de données dans une prochaine étape.";
+
+    document.getElementById("workspace").style.display = "block";
+
+    document.getElementById("workspace").scrollIntoView({
+      behavior: "smooth"
+    });
+  });
+});
+
+document.getElementById("backButton").addEventListener("click", () => {
+  document.getElementById("workspace").style.display = "none";
+});
+
+document.getElementById("logoutButton").addEventListener("click", async () => {
+  await signOut(auth);
+
+  dashboard.style.display = "none";
+  login.style.display = "block";
+
+  form.reset();
+  message.textContent = "";
+});
+
 </script>
+
 </body>
 </html>
